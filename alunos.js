@@ -1,4 +1,4 @@
-const BD = require('./Database/bd');
+const BD = require('./bd.js');
 
 async function inclua(aluno)
 {
@@ -7,8 +7,8 @@ async function inclua(aluno)
         return null;
     }
     try{
-        const sql = 'INSERT INTO alunos(ra,latitude,longitude,foto) VALUES(?,?,?,?)';
-        const dados = [aluno.ra,aluno.latitude, aluno.longitude,aluno.foto];
+        const sql = 'INSERT INTO alunos(RA,latitude,longitude,foto) VALUES(?,?,?,?)';
+        const dados = [aluno.RA,aluno.latitude, aluno.longitude,aluno.foto];
         await conexao.query (sql,dados);
         return true;
     }catch(excecao){
@@ -33,7 +33,7 @@ async function atualize(aluno)
     }
 }
 
-async function remova(ra)
+async function remova(RA)
 {
     const conexao = await BD.getConexao();
     if(conexao == null){
@@ -41,8 +41,8 @@ async function remova(ra)
     }
 
     try{
-        const sql = 'DELETE FROM alunos WHERE ra=?';
-        const dados = [ra];
+        const sql = 'DELETE FROM alunos WHERE RA=?';
+        const dados = [RA];
         await conexao.query(sql,dados)
         return true;
     }catch(excecao){
@@ -50,15 +50,15 @@ async function remova(ra)
     }
 }
 
-async function recupereUm(ra)
+async function recupereUm(RA)
 {
     const conexao = await BD.getConexao();
     if(conexao == null){
         return null;
     }
     try{
-        const sql = 'SELECT * FROM alunos WHERE ra=?';
-        const dados = [ra];
+        const sql = 'SELECT * FROM alunos WHERE RA=?';
+        const dados = [RA];
         const [linhas] = await conexao.query(sql,dados)
         return linhas;
     }catch(excecao){

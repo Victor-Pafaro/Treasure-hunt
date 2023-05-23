@@ -25,10 +25,12 @@ async function estrutureSe(){
             return null;
         }
     
-        const sql = 'CREATE TABLE IF NOT EXISTS livros '+
-                    '(codigo TINYINT UNSIGNED, '+
-                    'nome VARCHAR(60) NOT NULL, '+
-                    'preco FLOAT NOT NULL, PRIMARY KEY (codigo))';
+        const sql = 'CREATE TABLE IF NOT EXISTS alunos '+
+                    '(RA SMALLINT UNSIGNED, '+
+                    'latitude BIGINT NOT NULL, '+
+                    'longitude BIGINT NOT NULL, '+
+                    'foto INT NOT NULL,PRIMARY KEY (RA));'
+                     
 
     try{
         await conexao.query(sql)

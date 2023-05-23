@@ -35,11 +35,11 @@ async function ativacaoDoServidor()
         app.use(express.json()); // faz com que o express consiga processar JSON
         app.use(middleWareGlobal); // app.use cria o middleware global
     
-        app.post('/livros',rotas.inclusao);
-        app.put('/livros/:codigo', rotas.atualizacao);
-        app.delete('/livros/:codigo', rotas.remocao);
-        app.get('/livros/:codigo', rotas.recuperacaoDeUm);
-        app.get('/livros', rotas.recuperacaoDeTodos);
+        app.post('/alunos',rotas.inclusao);
+        app.put('/alunos/:RA', rotas.atualizacao);
+        app.delete('/alunos/:RA', rotas.remocao);
+        app.get('/alunos/:RA', rotas.recuperacaoDeUm);
+        app.get('/alunos', rotas.recuperacaoDeTodos);
     
         console.log('Servidor ativo na porta 3000...');
         app.listen(3000);
