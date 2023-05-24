@@ -2,7 +2,6 @@ const ALUNOS = require('./alunos.js');
 const ALUNO = require('./aluno.js');
 const COMUNICADO = require('./comunicado.js');
 
-
 // para a rota de CREATE
 async function inclusao(req,res)
 {
@@ -19,7 +18,7 @@ async function inclusao(req,res)
     }
     catch(excecao)
     {
-        const erro = COMUNICADO.novo('TDE', 'Dados de tipos errados', 'RA dever ser um numero natural positivo, latitude e longitude deve ser um numero real').object;
+        const erro = COMUNICADO.novo('TDE', 'Dados de tipos errados', 'ra dever ser um numero natural positivo, latitude e longitude deve ser um numero real').object;
         return res.status(422).json(erro);
     }
 
@@ -27,13 +26,13 @@ async function inclusao(req,res)
 
     if(ret === null)
     {
-        const erro = COMUNICADO.novo('CBD', 'Sem conexao com o BD', 'RA dever ser um numero natural positivo, latitude e longitude deve ser um numero real').object;
+        const erro = COMUNICADO.novo('CBD', 'Sem conexao com o BD', 'ra dever ser um numero natural positivo, latitude e longitude deve ser um numero real').object;
         return res.status(500).json(erro);
     }
 
     if(ret ===false)
     {
-        const erro = COMUNICADO.novo('AJE', 'Aluno já existe', 'Já há um Aluno cadastrado com o RA informado').object;
+        const erro = COMUNICADO.novo('AJE', 'Aluno já existe', 'Já há um Aluno cadastrado com o ra informado').object;
         return res.status(409).json(erro);
     }
 
@@ -41,75 +40,11 @@ async function inclusao(req,res)
     return res.status(200).json(sucesso);
 }
 
-/*async function atualizacao(req,res){
-    if(Object.values(req.body).length!= 4 ||!req.body.ra || !req.body.latitude || !req.body.longitude || !req.body.foto)
-    {
-        const erro = COMUNICADO.novo('DdI', 'Dados inesperados', 'Nao foram fornecidos exatamente as 4 informações esperadas de um Aluno(ra,latitude, longitude e foto)').object;
-        return res.status(422).json(erro);
-    }
-
-    let aluno;
-    try
-    {
-        aluno = ALUNO.novo(req.body.ra, req.body.latitude, req.body.longitude, req.body.foto);
-    }
-    catch(execao){
-        const erro = COMUNICADO.novo('TDE', 'Dados de tipos errados', ' real positivo').object;
-        return res.status(422).json(erro);
-    }
-
-    const RA = req.params.RA;
-    if(RA!=aluno.RA)
-    {
-        const erro = COMUNICADO.novo('TMC', 'Mudança de RA', 'Tentativa de mudar o RA do aluno').object;
-        return res.status(400).json(erro);
-
-    }
-    
-    let ret = await ALUNOS.recupereUm(RA);
-
-    if(ret === null)
-    {
-        const erro = COMUNICADO.novo('CBD', 'Sem conexao com o BD', 'Codigo dever ser um numero natural positivo, latitude deve ser um texto nao vazio e lon deve ser um numero real positivo').object;
-        return res.status(500).json(erro);
-    }
-
-    if(ret ===false)
-    {
-        const erro = COMUNICADO.novo('FNC', 'Falha no comando SQL', 'O comando SQL apresenta algum erro de sintaxe').object;
-        return res.status(409).json(erro);
-    }
-
-    // Se o retorno do comando SQL for um vetor vazio:
-    if(ret.length==0)
-    {
-        const erro = COMUNICADO.novo('LNE', 'Aluno inexistente', 'Não há aluno cadastrado com o RA').object;
-        return res.status(404).json(erro);
-    }
-
-    ret = await ALUNOS.atualize(aluno);
-
-    if(ret==null)
-    {
-        const erro = COMUNICADO.novo('CBD','Sem conexao com o bd','Nao foi possivel estabelecer conexao com o banco').object;
-        return res.status(500).json(erro);
-    }
-
-    if(ret==false)
-    {
-        const erro = COMUNICADO.novo('FNC', 'Falha no comando SQL', 'O comando sql apresenta algum erro de sintaxe').object;
-        return res.status(409).json(erro);
-    }
-
-    const sucesso = COMUNICADO.novo('ABS', 'Alteracao bem sucedida', 'O Aluno foi atualizado com sucesso').object;
-    return res.status(200).json(sucesso);
-}
-*/
 
 async function atualizacao(req,res){
     if(Object.values(req.body).length!=4 || !req.body.ra || !req.body.latitude || !req.body.longitude || !req.body.foto)
     {
-        const erro = COMUNICADO.novo('DdI', 'Dados inesperados', 'Nao foram fornecidos exatamente as 4 informações esperadas de um livro(RA,latitude e lon)').object;
+        const erro = COMUNICADO.novo('DdI', 'Dados inesperados', 'Nao foram fornecidos exatamente as 4 informações esperadas de um aluno(ra,latitude e lon)').object;
         return res.status(422).json(erro);
     }
 
@@ -119,23 +54,24 @@ async function atualizacao(req,res){
         aluno = ALUNO.novo(req.body.ra, req.body.latitude, req.body.longitude, req.body.foto);
     }
     catch(execao){
-        const erro = COMUNICADO.novo('TDE', 'Dados de tipos errados', 'Codigo deve ser um numero natural positivo, latitude deve ser um texto nao vazio e lon deve ser um numero real positivo').object;
+        const erro = COMUNICADO.novo('TDE', 'Dados de tipos errados', 'RA deve ser um numero natural positivo, latitude deve ser um texto nao vazio e lon deve ser um numero real positivo').object;
         return res.status(422).json(erro);
     }
-
-    const RA = req.params.RA;
-    if(RA!=aluno.RA)
+    
+    const ra = req.params.ra;
+    
+    if(ra!=aluno.ra)
     {
-        const erro = COMUNICADO.novo('TMC', 'Mudança de RA', 'Tentativa de mudar o RA do aluno').object;
+        const erro = COMUNICADO.novo('TMC', 'Mudança de ra', 'Tentativa de mudar o ra do aluno').object;
         return res.status(400).json(erro);
 
     }
     
-    let ret = await ALUNOS.recupereUm(RA);
+    let ret = await ALUNOS.recupereUm(ra);
 
     if(ret === null)
     {
-        const erro = COMUNICADO.novo('CBD', 'Sem conexao com o BD', 'Codigo dever ser um numero natural positivo, latitude deve ser um texto nao vazio e lon deve ser um numero real positivo').object;
+        const erro = COMUNICADO.novo('CBD', 'Sem conexao com o BD', 'RA dever ser um numero natural positivo, latitude deve ser um texto nao vazio e lon deve ser um numero real positivo').object;
         return res.status(500).json(erro);
     }
 
@@ -148,7 +84,7 @@ async function atualizacao(req,res){
     // Se o retorno do comando SQL for um vetor vazio:
     if(ret.length==0)
     {
-        const erro = COMUNICADO.novo('LNE', 'ALUNO inexistente', 'Não há livro cadastrado com o código').object;
+        const erro = COMUNICADO.novo('LNE', 'ALUNO inexistente', 'Não há aluno cadastrado com o RA').object;
         return res.status(404).json(erro);
     }
 
@@ -178,8 +114,8 @@ async function remocao(req,res)
         return res.status(422).json(erro);
     }
 
-    const RA = req.params.RA;
-    let ret = await ALUNOS.recupereUm(RA);
+    const ra = req.params.ra;
+    let ret = await ALUNOS.recupereUm(ra);
 
     if(ret===null)
     {
@@ -194,11 +130,11 @@ async function remocao(req,res)
 
     if(ret.length==0)
     {
-        const erro = COMUNICADO.novo('LNE', 'Aluno inexistente', 'Não há Aluno cadastrado com o RA').object;
+        const erro = COMUNICADO.novo('LNE', 'Aluno inexistente', 'Não há Aluno cadastrado com o ra').object;
         return res.status(404).json(erro);
     }
 
-    ret = await ALUNOS.remova(RA);
+    ret = await ALUNOS.remova(ra);
 
     if(ret===null)
     {
@@ -216,8 +152,6 @@ async function remocao(req,res)
 
 }
 
-
-
 async function recuperacaoDeUm(req,res)
 {
     if(Object.values(req.body).length!=0){
@@ -225,9 +159,9 @@ async function recuperacaoDeUm(req,res)
         return res.status(422).json(erro);
     }
 
-    const RA = req.params.RA;
+    const ra = req.params.ra;
 
-    const ret = await ALUNOS.recupereUm(RA);
+    const ret = await ALUNOS.recupereUm(ra);
 
     if(ret===null)
     {
@@ -243,7 +177,7 @@ async function recuperacaoDeUm(req,res)
 
     if(ret.length==0)
     {
-        const erro = COMUNICADO.novo('LNE', 'Aluno inexistente', 'Não há Aluno cadastrado com o RA').object;
+        const erro = COMUNICADO.novo('LNE', 'Aluno inexistente', 'Não há Aluno cadastrado com o ra').object;
         return res.status(404).json(erro);
     }
 

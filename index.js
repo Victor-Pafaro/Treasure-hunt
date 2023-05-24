@@ -36,9 +36,9 @@ async function ativacaoDoServidor()
         app.use(middleWareGlobal); // app.use cria o middleware global
     
         app.post('/alunos',rotas.inclusao);
-        app.put('/alunos/:RA', rotas.atualizacao);
-        app.delete('/alunos/:RA', rotas.remocao);
-        app.get('/alunos/:RA', rotas.recuperacaoDeUm);
+        app.put('/alunos/:ra', rotas.atualizacao);
+        app.delete('/alunos/:ra', rotas.remocao);
+        app.get('/alunos/:ra', rotas.recuperacaoDeUm);
         app.get('/alunos', rotas.recuperacaoDeTodos);
     
         console.log('Servidor ativo na porta 3000...');

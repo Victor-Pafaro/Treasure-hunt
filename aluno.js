@@ -1,21 +1,21 @@
 class Aluno
 {
-    #RA
+    #ra
     #latitude
     #longitude
     #foto
 
-    constructor (RA, latitude, longitude, foto)
+    constructor (ra, latitude, longitude, foto)
     {
-        this.RA = RA;
+        this.ra = ra;
         this.latitude = latitude;
         this.longitude = longitude;
         this.foto = foto;
     }
 
-    get RA ()
+    get ra ()
     {
-        return this.#RA
+        return this.#ra
     }
 
     get latitude()
@@ -32,12 +32,12 @@ class Aluno
         return this.#foto
     }
 
-    set RA (RA)
+    set ra (ra)
     {
-        if (RA===undefined || typeof RA !== 'number' || isNaN(RA) || RA!==parseInt(RA) || RA<=0)
+        if (ra===undefined || typeof ra !=='number' || isNaN(ra) || ra!==parseInt(ra) || ra<=0)
             throw ('RA invalido');
 
-        this.#RA = RA;
+        this.#ra = ra;
     }
 
     set latitude (latitude)
@@ -61,9 +61,9 @@ class Aluno
 }
 
 
-function novo (RA,latitude,longitude, foto)
+function novo (ra,latitude,longitude, foto)
 {
-    return new Aluno (RA,latitude,longitude, foto);
+    return new Aluno (ra,latitude,longitude, foto);
 }
 
 module.exports = {novo}
